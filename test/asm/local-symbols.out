@@ -1,0 +1,9 @@
+ERROR: local-symbols.asm(6):
+    Cannot create "local" EQU '.equ'
+ERROR: local-symbols.asm(7):
+    Cannot create "local" EQUS '.equs'
+ERROR: local-symbols.asm(8):
+    Cannot create "local" SET '.set'
+ERROR: local-symbols.asm(11):
+    Cannot create "local" macro '.macro'
+error: Assembly aborted (4 errors)!
