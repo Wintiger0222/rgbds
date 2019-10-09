@@ -480,6 +480,11 @@ static struct sSymbol *createNonrelocSymbol(char *tzSym)
  */
 void sym_AddEqu(char *tzSym, int32_t value)
 {
+	if (tzSym[0] == '.') {
+		yyerror("Cannot create \"local\" EQU '%s'", tzSym);
+		return;
+	}
+
 	struct sSymbol *nsym = createNonrelocSymbol(tzSym);
 
 	if (nsym) {
@@ -504,6 +509,11 @@ void sym_AddEqu(char *tzSym, int32_t value)
  */
 void sym_AddString(char *tzSym, char *tzValue)
 {
+	if (tzSym[0] == '.') {
+		yyerror("Cannot create \"local\" EQUS '%s'", tzSym);
+		return;
+	}
+
 	struct sSymbol *nsym = createNonrelocSymbol(tzSym);
 
 	if (nsym) {
@@ -535,6 +545,11 @@ uint32_t sym_isString(char *tzSym)
  */
 void sym_AddSet(char *tzSym, int32_t value)
 {
+	if (tzSym[0] == '.') {
+		yyerror("Cannot create \"local\" SET '%s'", tzSym);
+		return;
+	}
+
 	struct sSymbol *nsym = findsymbol(tzSym, NULL);
 
 	if (nsym != NULL) {
@@ -707,6 +722,11 @@ void sym_Export(char *tzSym)
  */
 void sym_AddMacro(char *tzSym, int32_t nDefLineNo)
 {
+	if (tzSym[0] == '.') {
+		yyerror("Cannot create \"local\" macro '%s'", tzSym);
+		return;
+	}
+
 	struct sSymbol *nsym = createNonrelocSymbol(tzSym);
 
 	if (nsym) {
