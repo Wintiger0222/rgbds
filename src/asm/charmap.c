@@ -147,7 +147,7 @@ void charmap_InitMain(void)
 	mainCharmap = charmap_New("main", NULL);
 }
 
-int32_t charmap_Add(char *input, uint8_t output)
+int32_t charmap_Add(char *input, uint16_t output)
 {
 	int32_t i;
 	uint8_t v;
@@ -192,7 +192,8 @@ int32_t charmap_Convert(char **input)
 	char outchar[8];
 
 	int32_t i, match, length;
-	uint8_t v, foundCode;
+	uint8_t v;
+	uint16_t foundCode;
 
 	output = malloc(strlen(*input));
 	if (output == NULL)
@@ -223,8 +224,11 @@ int32_t charmap_Convert(char **input)
 		}
 
 		if (match) {
-			output[length] = foundCode;
-
+			if (foundCode > 0xFF) {
+				output[length] = (foundCode >> 8) & 0xFF;
+				length += 1;
+			} 
+			output[length] = foundCode & 0xFF;
 			length += 1;
 		} else {
 			/*

@@ -11,7 +11,7 @@
 
 #include <stdint.h>
 
-#define MAXCHARMAPS	512
+#define MAXCHARMAPS	3000
 #define CHARMAPLENGTH	16
 #define MAXCHARNODES	(MAXCHARMAPS * CHARMAPLENGTH + 1)
 
@@ -19,7 +19,7 @@
  * A node for trie structure.
  */
 struct Charnode {
-	uint8_t code; /* the value in a key-value pair. */
+	uint16_t code; /* the value in a key-value pair. */
 	uint8_t isCode; /* has 1 if it's a code node, not just a bridge node. */
 	struct Charnode *next[256]; /* each index representing the next possible
 				     * character from its current state.
@@ -41,7 +41,7 @@ struct Charmap *charmap_New(const char *name, const char *baseName);
 void charmap_Set(const char *name);
 void charmap_Push(void);
 void charmap_Pop(void);
-int32_t charmap_Add(char *input, uint8_t output);
+int32_t charmap_Add(char *input, uint16_t output);
 int32_t charmap_Convert(char **input);
 
 #endif /* RGBDS_ASM_CHARMAP_H */
